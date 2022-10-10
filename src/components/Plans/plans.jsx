@@ -9,6 +9,8 @@ import "./plans.css";
 function Plans() {
   return (
     <div className="plans-container">
+      <div className="blur plans-blur-1"></div>
+      <div className="blur plans-blur-2"></div>
       <div className="programs-header">
         <span className="stroke-text">READY TO START</span>
         <span>YOUR JOURNEY</span>
@@ -22,7 +24,7 @@ function Plans() {
             <span>KSh. {plan.price}</span>
             <div className="features">
               {plan.features.map((feature, i) => (
-                <div className="feature">
+                <div key={i} className="feature">
                   <img src={whiteTick} alt="tick" />
                   <span key={i}>{feature}</span>
                 </div>
