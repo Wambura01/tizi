@@ -86,3 +86,23 @@
 .feature > img {
   width: 1rem;
 }
+
+/* responsive design*/
+@media screen and (max-width: 768px) {
+  .plans {
+    flex-direction: column;
+  }
+
+  .plans > :nth-child(1) {
+    width: 95%;
+  }
+
+  .plans > :nth-child(2) {
+    transform: none;
+    width: 95%;
+  }
+
+  .plans > :nth-child(3) {
+    width: 95%;
+  }
+}

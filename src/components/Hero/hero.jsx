@@ -15,6 +15,8 @@ const transition = {
   duration: 3,
 };
 
+const mobile = window.innerWidth <= 768 ? true : false;
+
 function Hero() {
   return (
     <div className="hero">
@@ -23,7 +25,7 @@ function Hero() {
         <Header />
         <div className="the-best-ad">
           <motion.div
-            initial={{ left: "238px" }}
+            initial={{ left: mobile ? "170px" : "238px" }}
             whileInView={{ left: "8px" }}
             transition={transition}
           ></motion.div>
