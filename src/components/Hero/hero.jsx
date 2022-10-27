@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import NumberCounter from "number-counter";
+import { Link } from "react-router-dom";
 
 import Header from "../Header/header";
 
@@ -73,7 +74,9 @@ function Hero() {
         </div>
       </div>
       <div className="right-h">
-        <button className="btn">Join Now</button>
+        <Link className="link" to="/login">
+          <button className="btn">Join Now</button>
+        </Link>
         <motion.div
           transition={transition}
           whileInView={{ right: "4rem" }}

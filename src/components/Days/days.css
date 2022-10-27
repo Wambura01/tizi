@@ -1,0 +1,31 @@
+.days {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.days-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.day {
+  background: var(--planCard);
+  padding: 7rem;
+  margin: 2rem 0 1rem 0;
+  color: white;
+  transition: transform 0.2s linear;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.day:hover {
+  transform: scale(1.1);
+}

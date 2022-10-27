@@ -116,6 +116,11 @@
   color: black;
 }
 
+.right-h > .link {
+  position: absolute;
+  top: 2rem;
+}
+
 .heart-rate {
   display: flex;
   flex-direction: column;
