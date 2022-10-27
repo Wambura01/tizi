@@ -5,6 +5,7 @@ import { programsData } from "../../data/programsData";
 import RightArrow from "../../assets/rightArrow.png";
 
 import "./programs.css";
+import { Link } from "react-router-dom";
 
 function Programs() {
   return (
@@ -20,10 +21,12 @@ function Programs() {
             {program.image}
             <span>{program.heading}</span>
             <span>{program.details}</span>
-            <div className="join-now">
-              <span>Join Now</span>
-              <img src={RightArrow} alt="right arrow" />
-            </div>
+            <Link style={{ textDecoration: "none" }} to="/days">
+              <div className="join-now">
+                <span>Join Now</span>
+                <img src={RightArrow} alt="right arrow" />
+              </div>
+            </Link>
           </div>
         ))}
       </div>

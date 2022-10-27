@@ -16,7 +16,7 @@ export const LoginPage = styled.div({
 // LEFT login div
 export const LeftDiv = styled.div({
   width: "50%",
-  height: "100vh",
+  height: "auto",
   background: "linear-gradient(210.41deg, #fa5042 1.14%, #ffa739 100.75%)",
   display: "flex",
   alignItems: "center",

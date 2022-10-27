@@ -57,6 +57,11 @@
   width: 1rem;
 }
 
+.join-now > span {
+  color: white;
+  text-decoration: none;
+}
+
 .category:hover {
   background: var(--planCard);
   cursor: pointer;

@@ -95,7 +95,7 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(response));
         setIsLogged(true);
         setTimeout(() => {
-          navigate("/home", { replace: true });
+          navigate("/", { replace: true });
         }, 1000);
       } else {
         console.log("Wrong Credentials!");

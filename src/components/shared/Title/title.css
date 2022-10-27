@@ -1,0 +1,14 @@
+.days-title {
+  display: flex;
+  margin-top: 1rem;
+  gap: 5rem;
+  font-weight: bold;
+  font-size: 3rem;
+  justify-content: center;
+  color: white;
+  text-transform: uppercase;
+  font-style: italic;
+  width: 40%;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid red;
+}
