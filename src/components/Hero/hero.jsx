@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import NumberCounter from "number-counter";
 
 import Header from "../Header/header";
 
@@ -19,7 +20,7 @@ const mobile = window.innerWidth <= 768 ? true : false;
 
 function Hero() {
   return (
-    <div className="hero">
+    <div className="hero" id="home">
       <div className="blur hero-blur"></div>
       <div className="left-h">
         <Header />
@@ -48,15 +49,21 @@ function Hero() {
         </div>
         <div className="figures">
           <div className="">
-            <span>+140</span>
+            <span>
+              <NumberCounter end={140} start={100} delay="4" preFix="+" />
+            </span>
             <span>Expert Coaches</span>
           </div>
           <div className="">
-            <span>+978</span>
+            <span>
+              <NumberCounter end={978} start={100} delay="4" preFix="+" />
+            </span>
             <span>Members Joined</span>
           </div>
           <div className="">
-            <span>+50</span>
+            <span>
+              <NumberCounter end={50} start={0} delay="4" preFix="+" />
+            </span>
             <span>Fitness Programs</span>
           </div>
         </div>
