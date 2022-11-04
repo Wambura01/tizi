@@ -59,7 +59,7 @@ function Login() {
         const user = result.user.providerData[0];
         console.log("user: ", user);
         localStorage.setItem("user", JSON.stringify(user));
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       })
       .catch((error) => {
         // Handle Errors here.
