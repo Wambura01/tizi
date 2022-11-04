@@ -11,6 +11,7 @@ import heart from "../../assets/heart.png";
 import calories from "../../assets/calories.png";
 
 import "./hero.css";
+import AccountMenu from "../Account/account";
 
 const transition = {
   type: "spring",
@@ -18,6 +19,7 @@ const transition = {
 };
 
 const mobile = window.innerWidth <= 768 ? true : false;
+const sessionUser = JSON.parse(localStorage.getItem("user"));
 
 function Hero() {
   return (
@@ -74,9 +76,13 @@ function Hero() {
         </div>
       </div>
       <div className="right-h">
-        <Link className="link" to="/login">
-          <button className="btn">Join Now</button>
-        </Link>
+        {sessionUser ? (
+          <AccountMenu />
+        ) : (
+          <Link className="link" to="/login">
+            <button className="btn">Join Now</button>
+          </Link>
+        )}
         <motion.div
           transition={transition}
           whileInView={{ right: "4rem" }}
