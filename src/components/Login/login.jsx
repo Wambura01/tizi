@@ -105,8 +105,6 @@ function Login() {
     },
   });
 
-  console.log("isLogged: ", isLogged);
-
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
 
