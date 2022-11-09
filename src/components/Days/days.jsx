@@ -7,21 +7,21 @@ import "./days.css";
 
 const sessionUser = JSON.parse(localStorage.getItem("user"));
 
-console.log("SESSION USER: ", sessionUser);
+const partialDays = [1, 2, 3, 4, 5];
+const fullDays = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+  23, 24, 25, 26, 27, 28, 29, 30, 31,
+];
 
 function Days() {
-  const [days, setDays] = useState();
-
-  const partialDays = [1, 2, 3, 4, 5];
-  const fullDays = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-  ];
+  const [days, setDays] = useState(partialDays);
 
   useEffect(() => {
-    sessionUser.email === "bwambura3314@gmail.com"
-      ? setDays(fullDays)
-      : setDays(partialDays);
+    sessionUser.email !== "bwambura3314@gmail.com"
+      ? setDays(partialDays)
+      : setDays(fullDays);
+
+    console.log("Effect DAYS: ", days);
   }, []);
 
   console.log("DAYS: ", days);
@@ -43,19 +43,23 @@ function Days() {
           </div>
         ))}
       </div>
-      <Typography
-        sx={{
-          marginTop: "3rem",
-          paddingBottom: "5rem",
-          color: "white",
-          fontSize: "2rem",
-          fontStyle: "italic",
-          fontWeight: "bold",
-          textTransform: "uppercase",
-        }}
-      >
-        *** Buy a plan to see workouts for a whole month!! ***
-      </Typography>
+      {sessionUser.email !== "bwambura3314@gmail.com" ? (
+        <Typography
+          sx={{
+            marginTop: "3rem",
+            paddingBottom: "5rem",
+            color: "white",
+            fontSize: "2rem",
+            fontStyle: "italic",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+          }}
+        >
+          *** Buy a plan to see workouts for a whole month!! ***
+        </Typography>
+      ) : (
+        ""
+      )}
       <Outlet />
     </div>
   );

@@ -166,6 +166,15 @@ export default function AccountMenu() {
           </Box>
         </MenuItem>
         <Divider />
+        {user.email === "bwambura3314@gmail.com" ? (
+          <MenuItem>
+            <Button fullWidth color="primary" variant="outlined">
+              <Link to="admin-portal">Portal</Link>
+            </Button>
+          </MenuItem>
+        ) : (
+          ""
+        )}
         <MenuItem>
           <Button fullWidth color="error" variant="contained" onClick={logout}>
             Logout
