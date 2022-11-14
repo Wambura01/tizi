@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import { alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import Toolbar from "@mui/material/Toolbar";
+import { Toolbar, Button } from "@mui/material";
 
 export const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
@@ -33,7 +34,7 @@ export const EnhancedTableToolbar = (props) => {
         <Typography
           sx={{
             flex: "1 1 100%",
-            fontFamily: "Rubik, sans-serif",
+            fontFamily: "Arial, Helvetica, sans-serif",
             fontWeight: "700",
             fontSize: "26px",
           }}
@@ -44,6 +45,21 @@ export const EnhancedTableToolbar = (props) => {
           Registered Users
         </Typography>
       )}
+      <Link to="/">
+        <Button
+          fullWidth
+          sx={{
+            fontFamily: "Arial, Helvetica, sans-serif",
+            backgroundColor: "black",
+            color: "white",
+            fontSize: "0.9rem",
+            marginRight: "4rem",
+          }}
+          variant="contained"
+        >
+          Home
+        </Button>
+      </Link>
     </Toolbar>
   );
 };

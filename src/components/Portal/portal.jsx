@@ -8,7 +8,7 @@ import createCache from "@emotion/cache";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TextField, Box, Button, Stack } from "@mui/material";
+import { TextField, Box, Button, Stack, Typography } from "@mui/material";
 
 import { Pagination } from "../../firebase/operations";
 
@@ -47,11 +47,11 @@ export default function AdminPortal(props) {
       let newFilter;
       if (key === "dateDisbursed") {
         newFilter = {
-          registeredFrom: moment(item[0]).format("DD-MM-YYYY"),
-          registeredTo: moment(item[1]).format("DD-MM-YYYY"),
+          registeredFrom: moment(item[0]).format("MM-DD-YYYY"),
+          registeredTo: moment(item[1]).format("MM-DD-YYYY"),
         };
       } else {
-        newFilter = { [key]: moment(item[0]).format("DD-MM-YYYY") };
+        newFilter = { [key]: moment(item[0]).format("MM-DD-YYYY") };
       }
       console.log("FILTER: ", newFilter);
       Object.assign(filterList, newFilter);
@@ -70,38 +70,38 @@ export default function AdminPortal(props) {
       },
     },
     {
-      name: "phoneNumber",
+      name: "phoneNumbuer",
       label: "Phone Number",
       options: {
-        filter: true,
+        filter: false,
       },
     },
     {
       name: "email",
       label: "Email",
       options: {
-        filter: true,
+        filter: false,
       },
     },
     {
       name: "weight",
-      label: "Phone Number",
+      label: "Weight (kg)",
       options: {
-        filter: true,
+        filter: false,
       },
     },
     {
       name: "height",
-      label: "Phone Number",
+      label: "Height (cm)",
       options: {
-        filter: true,
+        filter: false,
       },
     },
     {
       name: "plan",
       label: "Subscribed Plan",
       options: {
-        filter: false,
+        filter: true,
       },
     },
     {
@@ -154,8 +154,8 @@ export default function AdminPortal(props) {
           names: [],
           logic(dateRegistered, filters) {
             const formattedDate =
-              typeof dueDate === "string"
-                ? moment(dateRegistered, "DD-MM-YYYY").format("MM-DD-YYYY")
+              typeof dateRegistered === "string"
+                ? moment(dateRegistered, "MM-DD-YYYY").format("MM-DD-YYYY")
                 : moment(dateRegistered.toDate().toDateString()).format(
                     "MM-DD-YYYY"
                   );
@@ -213,16 +213,20 @@ export default function AdminPortal(props) {
           ),
         },
         customBodyRenderLite: (dataIndex) =>
-          moment(rows[dataIndex].registeredDate.toDate().toDateString()).format(
-            "MM-DD-YYYY"
-          ),
+          moment(rows[dataIndex].dateRegistered).format("MM-DD-YYYY"),
       },
     },
     {
-      name: "status",
+      name: "active",
       label: "Status",
       options: {
         filter: false,
+        customBodyRenderLite: (dataIndex) =>
+          rows[dataIndex].active === false ? (
+            <Typography sx={{ color: "red" }}>Inactive</Typography>
+          ) : (
+            <Typography sx={{ color: "green" }}>Active</Typography>
+          ),
       },
     },
   ];
@@ -233,7 +237,7 @@ export default function AdminPortal(props) {
 
     const fetchMoreData = (key) => {
       if (key) {
-        Pagination.fetchNextBatch(key, "users", "registeredDate")
+        Pagination.fetchNextBatch(key, "users", "dateRegistered")
           .then((res) => {
             setLastKey(res.lastKey);
             setRows(rows.concat(res.fetchedData));
@@ -296,7 +300,7 @@ export default function AdminPortal(props) {
   };
   // pull data from firebase and set table rows
   useEffect(() => {
-    Pagination.fetchFirstBatch("users", "registeredDate")
+    Pagination.fetchFirstBatch("users", "dateRegistered")
       .then((res) => {
         setRows(res.fetchedData);
         setLastKey(res.lastKey);
@@ -306,8 +310,6 @@ export default function AdminPortal(props) {
         console.log("Err: ", err);
       });
   }, []);
-
-  console.log("registered users", rows);
 
   return (
     <div style={{ backgroundColor: "#F7F7F7" }}>
