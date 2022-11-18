@@ -1,5 +1,5 @@
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+// import { doc, setDoc } from "firebase/firestore";
+// import { db } from "../firebase/firebase";
 
 const users = [
   {
@@ -279,22 +279,22 @@ const users = [
   },
 ];
 
-export const addData = () => {
-  users.map((user) => {
-    const add = async () => {
-      // Add a new document in collection "cities"
-      await setDoc(doc(db, "users", user.id), {
-        id: user.id,
-        displayName: user.displayName,
-        phoneNumbuer: user.phoneNumbuer,
-        email: user.email,
-        weight: user.weight,
-        height: user.height,
-        dateRegistered: user.dateRegistered,
-        plan: user.plan,
-        active: user.active,
-      });
-    };
-    add();
-  });
-};
+// export const addData = () => {
+//   users.map((user) => {
+//     const add = async () => {
+//       // Add a new document in collection "cities"
+//       await setDoc(doc(db, "users", user.id), {
+//         id: user.id,
+//         displayName: user.displayName,
+//         phoneNumbuer: user.phoneNumbuer,
+//         email: user.email,
+//         weight: user.weight,
+//         height: user.height,
+//         dateRegistered: user.dateRegistered,
+//         plan: user.plan,
+//         active: user.active,
+//       });
+//     };
+//     add();
+//   });
+// };

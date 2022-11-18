@@ -1,11 +1,11 @@
 import Routes from "./utils/Routes";
 
-import { addData } from "./data/usersData";
+// import { addData } from "./data/usersData";
 
 import "./App.css";
 
 function App() {
-  addData();
+  // addData();
 
   return (
     <div className="App">

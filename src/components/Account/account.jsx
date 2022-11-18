@@ -168,7 +168,16 @@ export default function AccountMenu() {
         {user.email === "bwambura3314@gmail.com" ? (
           <MenuItem>
             <Button fullWidth color="primary" variant="outlined">
-              <Link to="admin-portal">Portal</Link>
+              <Link
+                to="admin-portal"
+                style={{
+                  color: "black",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                }}
+              >
+                Portal
+              </Link>
             </Button>
           </MenuItem>
         ) : (
