@@ -5,6 +5,8 @@ import {
   startAfter,
   limit,
   orderBy,
+  updateDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -54,6 +56,29 @@ export const Pagination = {
       return { fetchedData, lastKey };
     } catch (error) {
       console.log("Error: ", error);
+    }
+  },
+};
+
+// update user
+export const UsersOperations = {
+  // update user
+  deactivateUser: async (userId, active) => {
+    let check;
+
+    const usersRef = doc(db, "users", userId);
+    try {
+      await updateDoc(usersRef, {
+        active: !active,
+      });
+      check = true;
+
+      console.log("CHECK: ", check);
+      return check;
+    } catch (err) {
+      console.log("Error while updating: ", err);
+      check = false;
+      return check;
     }
   },
 };

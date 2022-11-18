@@ -17,6 +17,7 @@ import CircularStatic from "../shared/Loader/loader";
 import NoData from "../shared/NoData/noData";
 
 import { tableStyles } from "../Styles/tableStyles";
+import UsersMoreMenu from "./usersMoreMenu";
 
 const muiCache = createCache({
   key: "mui-datatables",
@@ -227,6 +228,23 @@ export default function AdminPortal(props) {
           ) : (
             <Typography sx={{ color: "green" }}>Active</Typography>
           ),
+      },
+    },
+    {
+      name: "",
+      label: "",
+      options: {
+        filter: false,
+        customBodyRenderLite: (dataIndex) => {
+          if (rows[dataIndex]) {
+            return (
+              <UsersMoreMenu
+                userId={rows[dataIndex]["docId"]}
+                userData={rows[dataIndex]}
+              />
+            );
+          }
+        },
       },
     },
   ];
