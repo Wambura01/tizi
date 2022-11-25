@@ -280,8 +280,8 @@ export default function AdminPortal(props) {
     responsive: "standard",
     rowsPerPage,
     rowsPerPageOptions: [10, 25, 50, 100],
-    download: false,
-    print: false,
+    download: true,
+    print: true,
     confirmFilters: true,
     onTableChange: (action, tableState) => {
       switch (action) {
@@ -331,7 +331,7 @@ export default function AdminPortal(props) {
 
   return (
     <div style={{ backgroundColor: "#F7F7F7" }}>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar data={rows} />
       <CacheProvider value={muiCache}>
         <ThemeProvider theme={getMuiTheme()}>
           {isLoading ? (

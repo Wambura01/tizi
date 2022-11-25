@@ -1,4 +1,4 @@
-import { useParams, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
 import Homepage from "../components/HomePage/homepage";
 import Login from "../components/Login/login";
@@ -25,7 +25,6 @@ const Routes = () => {
       path: "day/:day",
       element: <Day />,
     },
-    ,
   ]);
 
   return routes;
