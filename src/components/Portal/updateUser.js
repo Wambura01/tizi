@@ -127,7 +127,7 @@ export default function UpdateUser({ userId, userData }) {
             color={active ? "error" : "success"}
             sx={{ fontFamily: "Rubik, sans-serif", fontWeight: "bold" }}
           >
-            Update
+            {active ? `Deactivate` : `Activate`}
           </Button>
         </DialogActions>
       </Dialog>

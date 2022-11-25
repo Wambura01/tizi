@@ -29,6 +29,13 @@
   -webkit-text-stroke-color: white;
 }
 
+.stroke-text__black {
+  color: transparent;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
 .btn {
   padding: 0.5rem;
   font-weight: bold;
