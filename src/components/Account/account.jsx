@@ -14,11 +14,10 @@ import Tooltip from "@mui/material/Tooltip";
 
 import { Button } from "@mui/material";
 
-import { getInitials } from "../../utils/getInitials";
+import { getInitials, getFirstLetter } from "../../utils/getInitials";
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
   const [user, setUser] = useState([]);
 
   const open = Boolean(anchorEl);
@@ -74,18 +73,20 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 45, height: 45, display: "flex" }}>
+            <Avatar sx={{ width: 41, height: 40, display: "flex" }}>
               <Typography
                 sx={{
                   backgroundColor: "black",
-                  padding: "0.7rem",
+                  padding: "0.5rem",
                   borderRadius: "50pc",
                   fontFamily: "Rubik, sans-serif",
                   fontWeight: "700",
                   color: "white",
                 }}
               >
-                {getInitials(user?.displayName)}
+                {user?.displayName
+                  ? getInitials(user?.displayName)
+                  : getFirstLetter(user?.user?.email)}
               </Typography>
             </Avatar>
           </IconButton>
@@ -130,14 +131,16 @@ export default function AccountMenu() {
           <Typography
             sx={{
               backgroundColor: "black",
-              padding: "0.7rem",
+              padding: "0.5rem",
               borderRadius: "50pc",
               fontFamily: "Rubik, sans-serif",
               fontWeight: "700",
               color: "white",
             }}
           >
-            {getInitials(user?.displayName)}
+            {user?.displayName
+              ? getInitials(user?.displayName)
+              : getFirstLetter(user?.user?.email)}
           </Typography>
           <Box sx={{ marginLeft: "1rem" }}>
             <Typography
@@ -149,7 +152,9 @@ export default function AccountMenu() {
                 textAlign: "right",
               }}
             >
-              {user?.displayName}
+              {user?.displayName
+                ? user?.displayName
+                : user?.user?.email.split("@").shift()}
             </Typography>
             <Typography
               sx={{
@@ -160,7 +165,7 @@ export default function AccountMenu() {
                 textAlign: "center",
               }}
             >
-              {user?.email}
+              {user?.email ? user?.email : user?.user?.email}
             </Typography>
           </Box>
         </MenuItem>

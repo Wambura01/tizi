@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import NumberCounter from "number-counter";
 import { alpha } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Toolbar, Button, Box, Paper } from "@mui/material";
