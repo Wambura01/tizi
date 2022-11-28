@@ -1,10 +1,9 @@
 import React, { useState, forwardRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik, Form, FormikProvider } from "formik";
 import * as Yup from "yup";
 
-import { logInWithEmailAndPassword } from "../../firebase/firebase";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { registerWithEmailAndPassword } from "../../firebase/firebase";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -12,7 +11,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import GoogleIcon from "@mui/icons-material/Google";
 
 import logo from "../../assets/logo.png";
 
@@ -27,16 +25,12 @@ import {
   InputContainer,
   InputLabels,
   ForgotPassword,
-  SignInOptions,
 } from "./loginStyles";
 
-function Login() {
-  const [isLogged, setIsLogged] = useState(false); // logged in state
+function Register() {
+  const [isRegistered, setIsRegistered] = useState(false); // logged in state
   const [open, setOpen] = useState(false); // open and close alert
   let navigate = useNavigate();
-
-  const provider = new GoogleAuthProvider();
-  const auth = getAuth();
 
   // customizable alert
   const Alert = forwardRef(function Alert(props, ref) {
@@ -52,53 +46,34 @@ function Login() {
     setOpen(false);
   };
 
-  // login with google popup
-  const loginWithPopUp = async () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user.providerData[0];
-        console.log("user: ", user);
-        localStorage.setItem("user", JSON.stringify(user));
-        navigate("/", { replace: true });
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(
-          "Error Code: ",
-          errorCode,
-          " Error Message: ",
-          errorMessage
-        );
-      });
-  };
-
   // validating form inputs
-  const LoginSchema = Yup.object().shape({
+  const RegisterSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email must be a valid email address")
       .required("Email is required!"),
     password: Yup.string().required("Password is required!"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm your Password is required!"),
   });
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
-    validationSchema: LoginSchema,
+    initialValues: { email: "", password: "", confirmPassword: "" },
+    validationSchema: RegisterSchema,
     onSubmit: async (values) => {
-      const response = await logInWithEmailAndPassword(
+      const response = await registerWithEmailAndPassword(
         values.email,
         values.password
       );
       if (response) {
         console.log("user", response);
         localStorage.setItem("user", JSON.stringify(response));
-        setIsLogged(true);
+        setIsRegistered(true);
         setTimeout(() => {
-          navigate("/", { replace: true });
+          navigate("/enroll", { replace: true });
         }, 1000);
       } else {
-        console.log("Wrong Credentials!");
+        console.log("Cannot register!");
       }
 
       handleClick();
@@ -113,12 +88,10 @@ function Login() {
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
-          severity={isLogged ? "success" : "error"}
+          severity={isRegistered ? "success" : "error"}
           sx={{ width: "100%" }}
         >
-          {isLogged
-            ? "Logged in successfully!!!"
-            : "Incorrect Email or Password!!!"}
+          {isRegistered ? "Registered successfully!!!" : "Not Registered!!!"}
         </Alert>
       </Snackbar>
       <LeftDiv className="left">
@@ -132,7 +105,7 @@ function Login() {
       </LeftDiv>
       <RightDiv className="right">
         <RightContent>
-          <Heading>Kindly provide the details below to login:</Heading>
+          <Heading>Kindly provide the details below to register:</Heading>
           <FormikProvider value={formik}>
             <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
               <Box sx={{ mt: "1.2rem" }}>
@@ -166,9 +139,28 @@ function Login() {
                     helperText={touched.password && errors.password}
                   />
                 </InputContainer>
+                <InputContainer>
+                  <InputLabels>Confirm Password</InputLabels>
+                  <TextField
+                    sx={{ mb: "1rem" }}
+                    placeholder="Confirm your password"
+                    variant="filled"
+                    type="password"
+                    name="confirmPassword"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.confirmPassword}
+                    error={
+                      touched.confirmPassword && Boolean(errors.confirmPassword)
+                    }
+                    helperText={
+                      touched.confirmPassword && errors.confirmPassword
+                    }
+                  />
+                </InputContainer>
               </Box>
-              <Link style={{ textDecoration: "none" }} to="/register">
-                <ForgotPassword>Dont have an account? Register</ForgotPassword>
+              <Link style={{ textDecoration: "none" }} to="/login">
+                <ForgotPassword>Already have an account? Login</ForgotPassword>
               </Link>
               <Button
                 color="success"
@@ -178,44 +170,15 @@ function Login() {
                 fullWidth
               >
                 <Typography sx={{ fontWeight: "bold", fontSize: ".9rem" }}>
-                  Login
+                  Register
                 </Typography>
               </Button>
             </Form>
           </FormikProvider>
-          <div
-            style={{
-              marginTop: "2rem",
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            className="or"
-          >
-            <p
-              style={{
-                fontSize: "1.5rem",
-                fontWeight: "normal",
-                marginTop: "0",
-              }}
-            >
-              Or
-            </p>
-          </div>
-          <SignInOptions>
-            <GoogleIcon
-              onClick={loginWithPopUp}
-              sx={{ fontSize: "4rem", cursor: "pointer" }}
-            />
-            <Typography sx={{ fontSize: ".9rem" }}>
-              Sign In with Google
-            </Typography>
-          </SignInOptions>
         </RightContent>
       </RightDiv>
     </LoginPage>
   );
 }
 
-export default Login;
+export default Register;

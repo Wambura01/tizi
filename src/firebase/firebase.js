@@ -1,7 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 // firebase app configs
 const firebaseConfig = {
@@ -31,5 +35,22 @@ export const logInWithEmailAndPassword = async (email, password) => {
     return user;
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+// register with email and password
+export const registerWithEmailAndPassword = async (email, password) => {
+  try {
+    const user = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((userCredentials) => {
+      console.log("Logged in successfully!!");
+      return userCredentials;
+    });
+    return user;
+  } catch (error) {
+    console.log("Error: ", error.message);
   }
 };

@@ -7,6 +7,9 @@ import {
   orderBy,
   updateDoc,
   doc,
+  serverTimestamp,
+  setDoc,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -79,6 +82,25 @@ export const UsersOperations = {
       console.log("Error while updating: ", err);
       check = false;
       return check;
+    }
+  },
+
+  // enroll user
+  enrollUser: async (values) => {
+    const newDocRef = doc(collection(db, "users"));
+    let isCreated = false;
+
+    try {
+      await setDoc(newDocRef, {
+        ...values,
+        dateRegistered: serverTimestamp(),
+        id: newDocRef.id,
+        active: true,
+      });
+      isCreated = true;
+      return { isCreated };
+    } catch (err) {
+      return { err, isCreated };
     }
   },
 };
